@@ -19,7 +19,7 @@ export default function OnboardingScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 items-center bg-white p-4">
+    <SafeAreaView className="flex-1 items-center p-4">
       <View className="my-8">
         <Text className="text-2xl font-bold">Traverse </Text>
       </View>

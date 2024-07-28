@@ -8,10 +8,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
-import {
-  MD3LightTheme,
-  PaperProvider,
-} from "react-native-paper";
+import { MD3LightTheme, PaperProvider } from "react-native-paper";
 import Providers from "@/lib/Providers";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -45,9 +42,14 @@ export default function RootLayout() {
   return (
     <PaperProvider>
       <Providers>
-        <Stack screenOptions={{ headerShown: false }}>
-          {/* <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="(auth)" /> */}
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: "#FFFFFF" },
+          }}
+        >
+          {/* <Stack.Screen name="(tabs)" /> */}
+          <Stack.Screen name="(auth)" />
           <Stack.Screen name="+not-found" />
           {/* <Stack.Screen name="details" /> */}
         </Stack>
