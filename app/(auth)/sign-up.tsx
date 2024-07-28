@@ -4,7 +4,7 @@ import { Text, TextInput } from "react-native-paper";
 import { useNavigation, useRouter } from "expo-router";
 import TVTextInput from "@/components/common/TVTextInput";
 import TVButton from "@/components/common/TVButton";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SignUpScreen() {
@@ -22,12 +22,12 @@ export default function SignUpScreen() {
   const toggleSecure = () => {
     setSecure((prevSecure) => !prevSecure);
   };
-  const handleLogin = () => {
+  const handleSignup = () => {
     // Handle login logic here
     router.push("/(tabs)");
   };
-  const navigateToSignup = () => {
-    router.push("/(auth)/sign-up"); //
+  const navigateToLogin = () => {
+    router.push("/(auth)/sign-in"); //
   };
 
   return (
@@ -51,7 +51,7 @@ export default function SignUpScreen() {
           mode="outlined"
           activeOutlineColor="orange"
           className="mb-4"
-          left={<TextInput.Icon icon={"user"} size={20} />}
+          left={<TextInput.Icon icon={"account"} size={20} />}
         />
         <TVTextInput
           label="Email"
@@ -87,16 +87,14 @@ export default function SignUpScreen() {
             />
           }
         />
-        <TouchableOpacity className="flex items-end my-2">
-          <Text className="font-bold">Forgot Password?</Text>
-        </TouchableOpacity>
-        <View className="flex-1 items-center space-y-4">
+
+        <View className="flex-1 items-center space-y-4 mt-4">
           <TVButton
             mode="contained"
-            onPress={handleLogin}
+            onPress={handleSignup}
             className="mt-2 p-1 bg-orange-500 w-full"
           >
-            Login
+            Sign up
           </TVButton>
           <Text>or continue with</Text>
           <TVButton
@@ -109,9 +107,9 @@ export default function SignUpScreen() {
             Google
           </TVButton>
           <View className="flex-row space-x-2 items-center ">
-            <Text>Don't have any account?</Text>
-            <TouchableOpacity onPress={navigateToSignup}>
-              <Text className="text-orange-600 font-bold">Sign Up</Text>
+            <Text>Already have any account?</Text>
+            <TouchableOpacity onPress={navigateToLogin}>
+              <Text className="text-orange-600 font-bold">Login</Text>
             </TouchableOpacity>
           </View>
         </View>
