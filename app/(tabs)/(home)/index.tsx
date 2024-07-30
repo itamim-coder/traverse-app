@@ -6,6 +6,7 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
+  FlatList,
 } from "react-native";
 import { Link, useRouter } from "expo-router";
 
@@ -14,6 +15,11 @@ import TVButton from "@/components/common/TVButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useUsersQuery } from "@/app/redux/api/usersApi";
 import { Avatar } from "react-native-paper";
+import Header from "@/components/home/header";
+import { useGetLocationQuery } from "@/app/redux/api/locationsApi";
+import PopularLocation from "@/components/home/PopularLocation";
+import TourPackage from "@/components/home/TourPackage";
+import { useGetAvailableTourQuery } from "@/app/redux/api/tourApi";
 
 const hotels = [
   {
@@ -40,63 +46,37 @@ const hotels = [
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { data: userData, isLoading } = useUsersQuery(undefined);
-  console.log(userData);
+
+  const { data: locationData, isLoading } = useGetLocationQuery(undefined);
+  const Locations = locationData?.data.result;
+  // console.log(Locations);
+  const { data: tourData } = useGetAvailableTourQuery(undefined);
+  console.log(tourData);
   const navigateToProfile = () => {
     router.push("/profile");
   };
 
   return (
-    <SafeAreaView className="h-full ">
-      <View className="bg-orange-300 p-4 h-40">
-        <View className="flex-row items-center space-x-4">
-          <View>
-            <Avatar.Image
-              size={54}
-              source={{
-                uri: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-              }}
-            />
-          </View>
-          <View>
-            <Text className="text-xl font-bold">Hello, Imtiaz</Text>
-          </View>
-        </View>
-      </View>
-      <View className="flex-row justify-evenly mt-[-40]">
-        <TouchableOpacity className="bg-white rounded p-4 flex items-center space-y-2">
-          <Image
-            source={require("../../../assets/images/hotel.png")}
-            className="w-12 h-12"
-          />
-          <Text className="font-bold ">Hotel</Text>
-        </TouchableOpacity>
-        <TouchableOpacity className="bg-white rounded p-4 flex items-center space-y-2">
-          <Image
-            source={require("../../../assets/images/suitcase.png")}
-            className="w-12 h-12"
-          />
-          <Text className="font-bold ">Tour</Text>
-        </TouchableOpacity>
-      </View>
-      <ScrollView className="flex-1 bg-gray-100 p-4">
-        <Text className="text-3xl font-bold text-center mb-6">Home</Text>
-        <View className="mb-6">
-          {userData?.map((data) => (
-            <Link key={data.id} href={`/(details)/${data.id}`}>
-              <CustomCard
-                key={data.id}
-                name={data.name}
-                description={data.phone}
-                onViewPress={() => alert(`More about ${hotel.name}`)}
-                onBookPress={() => alert(`Booked ${hotel.name}`)}
-              />
-            </Link>
-          ))}
-        </View>
-        <TVButton mode="contained" onPress={navigateToProfile} className="mt-2">
-          Go to Profile
-        </TVButton>
+    <SafeAreaView className="min-h-screen">
+      <Header />
+      <ScrollView className="flex-1   p-4">
+        <Text className="text-xl font-bold mb-3">Popular Cities</Text>
+        <FlatList
+          data={Locations}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => <PopularLocation item={item} />}
+          keyExtractor={(item) => item.id.toString()}
+        />
+        <Text className="text-xl font-bold my-3">Available Tours</Text>
+        <FlatList
+          data={tourData}
+          // horizontal={true}
+          // showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => <TourPackage item={item} />}
+          keyExtractor={(item) => item.id.toString()}
+        />
+    
       </ScrollView>
     </SafeAreaView>
   );

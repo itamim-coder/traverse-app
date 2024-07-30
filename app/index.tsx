@@ -8,7 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function OnboardingScreen() {
   const router = useRouter();
 
-  const isLogged = true; // Replace with actual authentication check
+  const isLogged = false; // Replace with actual authentication check
 
   if (isLogged) return <Redirect href="/(tabs)" />;
   const navigateToLogin = () => {
