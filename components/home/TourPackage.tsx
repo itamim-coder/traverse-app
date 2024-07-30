@@ -1,19 +1,34 @@
-import { View, Text } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 import CustomCard from "../ui/CustomCard";
 
 const TourPackage = ({ item }) => {
+  const router = useRouter();
+
+  const handlePress = () => {
+    router.push({
+      pathname: `(tour)/(details)/${item?.id}`,
+      params: item,
+    });
+  };
+
   return (
-    <View className="rounded bg-white p-2 mr-2">
-      <Link key={item?.id} href={`/(details)/${item?.id}`}>
-        <CustomCard
-          className=""
-          key={item?.id}
-          name={item?.name}
-          image={item?.image}
+    <View className="rounded bg-white flex-1 p-2 mb-2">
+      <TouchableOpacity className="flex-1" onPress={handlePress}>
+        <Image
+          className="w-full h-40"
+          source={{ uri: `${item?.images[0]}` }}
+          resizeMode="cover"
         />
-      </Link>
+        <View className="mt-3">
+          <Text className="text-md font-semibold">{item?.title}</Text>
+          <Text className="text-xs">Price starts from (per person)</Text>
+          <Text className="text-md font-semibold text-orange-600">
+            BDT {item?.price}
+          </Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };

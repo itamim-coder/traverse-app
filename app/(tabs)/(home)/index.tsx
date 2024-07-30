@@ -76,7 +76,7 @@ export default function HomeScreen() {
           renderItem={({ item }) => <TourPackage item={item} />}
           keyExtractor={(item) => item.id.toString()}
         />
-    
+        <View className="h-12" />
       </ScrollView>
     </SafeAreaView>
   );
