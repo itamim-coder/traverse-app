@@ -13,7 +13,7 @@ const TourPackage = ({ item, isLoading }) => {
     if (!isLoading) {
       router.push({
         pathname: `(tour)/(details)/${item?.id}`,
-        params: item,
+        params: { item: JSON.stringify(item) },
       });
     }
   };
