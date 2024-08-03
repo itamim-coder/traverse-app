@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ScrollView,
   View,
@@ -46,8 +46,18 @@ const hotels = [
 
 export default function HomeScreen() {
   const router = useRouter();
-
   const { data: locationData, isLoading } = useGetLocationQuery(undefined);
+  const [isDelayedLoading, setIsDelayedLoading] = useState(true);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsDelayedLoading(isLoading);
+    }, 2000); // 2-second delay
+
+    // Clear timeout if the component unmounts or if loading state changes
+    return () => clearTimeout(timeoutId);
+  }, [isLoading]);
+
   const Locations = locationData?.data.result;
   // console.log(Locations);
   const { data: tourData } = useGetAvailableTourQuery(undefined);
@@ -65,18 +75,28 @@ export default function HomeScreen() {
           data={Locations}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => <PopularLocation item={item} />}
+          renderItem={({ item, index }) => (
+            <PopularLocation
+              item={item}
+              index={index}
+              length={Locations.length}
+            />
+          )}
           keyExtractor={(item) => item.id.toString()}
         />
         <Text className="text-xl font-bold my-3">Available Tours</Text>
         <FlatList
-          data={tourData}
+          data={isDelayedLoading ? Array.from({ length: 3 }) : tourData}
           // horizontal={true}
           // showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => <TourPackage item={item} />}
-          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <TourPackage item={item} isLoading={isDelayedLoading} />
+          )}
+          keyExtractor={(item, index) =>
+            isDelayedLoading ? `skeleton-${index}` : item.id.toString()
+          }
         />
-        <View className="h-12" />
+        <View className="h-20" />
       </ScrollView>
     </SafeAreaView>
   );
