@@ -8,13 +8,19 @@ const HomeLayout = () => {
 
   return (
     <>
-      <Stack>
+      <Stack
+        screenOptions={{
+          // tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+          headerShown: false,
+        }}
+      >
         <Stack.Screen
           name="index"
           options={{
             headerShown: false,
           }}
         />
+    
       </Stack>
     </>
   );
