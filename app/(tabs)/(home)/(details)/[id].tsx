@@ -1,6 +1,6 @@
 import { useLocationBasedHotelQuery } from "@/app/redux/api/locationsApi";
 import { Ionicons } from "@expo/vector-icons";
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import { Link, useLocalSearchParams, useNavigation } from "expo-router";
 import {
   View,
   Text,
@@ -41,9 +41,11 @@ export default function DetailsScreen() {
               <View className="flex-1 flex-col justify-between pl-4">
                 <Text className="text-base font-semibold">{data.name}</Text>
                 <TouchableOpacity className="p-3 bg-orange-600 rounded-md">
-                  <Text className="text-white text-center font-semibold">
-                    Check Availability
-                  </Text>
+                  <Link key={data?.id} href={`(hotel)/(details)/${data?.id}`}>
+                    <Text className="text-white text-center font-semibold">
+                      Check Availability
+                    </Text>
+                  </Link>
                 </TouchableOpacity>
               </View>
             </View>

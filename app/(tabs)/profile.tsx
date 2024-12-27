@@ -1,8 +1,8 @@
 import TVButton from "@/components/common/TVButton";
 import TVTextInput from "@/components/common/TVTextInput";
 import React, { useState } from "react";
-import { View, ScrollView, StatusBar } from "react-native";
-import { Text } from "react-native-paper";
+import { View, ScrollView, StatusBar, Image } from "react-native";
+import { Avatar, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ProfileScreen() {
@@ -18,6 +18,17 @@ export default function ProfileScreen() {
   return (
     <SafeAreaView className="h-full">
       <ScrollView className=" bg-gray-100 p-4">
+        <View>
+          <View>
+            <Avatar.Image
+              size={54}
+              source={{
+                uri: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+              }}
+            />
+          </View>
+        </View>
+
         <Text className="text-3xl font-bold text-center mb-6">Profile</Text>
         <TVTextInput
           label="Name"

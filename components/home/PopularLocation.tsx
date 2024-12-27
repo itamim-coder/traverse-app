@@ -8,7 +8,7 @@ const PopularLocation = ({ item, index, length }) => {
     <View
       className={`rounded bg-white p-2 ${index !== length - 1 ? "mr-2" : ""}`}
     >
-      <Link key={item?.id} href={`/(details)/${item?.id}`}>
+      <Link key={item?.id} href={`(home)/(details)/${item?.id}`}>
         <CustomCard
           className=""
           key={item?.id}
