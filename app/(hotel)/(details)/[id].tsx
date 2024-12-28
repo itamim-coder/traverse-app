@@ -1,6 +1,11 @@
 import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
 import React from "react";
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import {
+  Link,
+  useLocalSearchParams,
+  useNavigation,
+  useRouter,
+} from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Carousel from "pinar";
 import { useSingleTourQuery } from "@/app/redux/api/tourApi";
@@ -18,7 +23,17 @@ const HotelDetails = () => {
   const handleGoBack = () => {
     navigation.goBack();
   };
-
+  const router = useRouter();
+  console.log("Rooms Data:", hotelData?.rooms);
+  const arrayData = ["Apple", "Banana", "Orange"];
+  const handlePress = (item) => {
+    if (!loading) {
+      router.push({
+        pathname: `(rooms)/${item.id}`,
+        params: { items: JSON.stringify(item.rooms) },
+      });
+    }
+  };
   return (
     <SafeAreaView className="flex-1 ">
       <ScrollView className="flex-1">
@@ -114,10 +129,11 @@ const HotelDetails = () => {
           <Text className="text-center font-semibold text-white text-lg">
             Starts From ${hotelData?.cheapest_price}
           </Text>
-          <TouchableOpacity>
-            <Text className="text-center rounded bg-orange-500 p-3 font-semibold text-white text-lg">
-              See All Rooms
-            </Text>
+          <TouchableOpacity
+            onPress={() => handlePress(hotelData)}
+            className="text-center rounded bg-orange-500 p-3 font-semibold text-white text-lg"
+          >
+            <Text>See All Rooms</Text>
           </TouchableOpacity>
         </View>
       </View>

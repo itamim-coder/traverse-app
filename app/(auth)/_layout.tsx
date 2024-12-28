@@ -8,7 +8,7 @@ const AuthLayout = () => {
 
   return (
     <>
-      <Stack >
+      <Stack>
         <Stack.Screen
           name="sign-in"
           options={{
@@ -22,8 +22,6 @@ const AuthLayout = () => {
           }}
         />
       </Stack>
-
- 
     </>
   );
 };

@@ -31,7 +31,7 @@ export default function DetailsScreen() {
             <Ionicons name={"arrow-back-outline"} color={"white"} size={25} />
           </TouchableOpacity>
         </View>
-        <View className="p-4 pt-8">
+        <View className="p-4">
           {hotelData?.Hotel?.map((data) => (
             <View className="flex-row bg-white rounded-xl p-2">
               <Image
