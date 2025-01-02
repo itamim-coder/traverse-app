@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function DetailsScreen() {
+const DetailsScreen=()=> {
   const { id } = useLocalSearchParams();
   const { data: hotelData, isLoading } = useLocationBasedHotelQuery(id);
   console.log(hotelData);
@@ -56,3 +56,4 @@ export default function DetailsScreen() {
     </SafeAreaView>
   );
 }
+export default DetailsScreen

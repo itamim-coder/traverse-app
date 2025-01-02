@@ -7,7 +7,7 @@ import TVButton from "@/components/common/TVButton";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function SignUpScreen() {
+const SignUpScreen = () => {
   const navigation = useNavigation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -116,4 +116,5 @@ export default function SignUpScreen() {
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
+export default SignUpScreen;

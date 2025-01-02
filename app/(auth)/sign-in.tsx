@@ -7,7 +7,7 @@ import TVButton from "@/components/common/TVButton";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function LoginScreen() {
+const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -99,4 +99,5 @@ export default function LoginScreen() {
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
+export default LoginScreen;

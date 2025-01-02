@@ -3,6 +3,7 @@ import React from "react";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { StatusBar } from "react-native";
+
 // import { Colors } from '@/constants/Colors';
 // import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -12,6 +13,7 @@ export default function TabLayout() {
 
   if (isLogged) return <Redirect href="/explore" />;
   return (
+
     <Tabs
      
       screenOptions={{
