@@ -8,7 +8,7 @@ import Animated, { FadeIn } from "react-native-reanimated";
 const TourPackage = ({ item, isLoading }) => {
   return (
     <View
-      className={`rounded bg-white flex-1 p-2 mb-2 ${
+      className={`rounded bg-white flex-1 p-2 mb-3 ${
         isLoading && "opacity-50"
       }`}
     >

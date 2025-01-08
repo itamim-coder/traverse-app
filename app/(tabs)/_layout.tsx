@@ -3,6 +3,7 @@ import React from "react";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { StatusBar } from "react-native";
+import TabBar from "@/components/navigation/TabBar";
 
 // import { Colors } from '@/constants/Colors';
 // import { useColorScheme } from '@/hooks/useColorScheme';
@@ -13,16 +14,14 @@ export default function TabLayout() {
 
   if (isLogged) return <Redirect href="/explore" />;
   return (
-
     <Tabs
-     
+      tabBar={(props) => <TabBar {...props} />}
       screenOptions={{
-        // tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
       }}
     >
       <Tabs.Screen
-        name="(home)"
+        name="index"
         options={{
           title: "Home",
         }}
@@ -39,6 +38,12 @@ export default function TabLayout() {
           title: "Profile",
         }}
       />
+      {/* <Tabs.Screen
+        name="(home)"
+        options={{
+          title: "Home",
+        }}
+      /> */}
     </Tabs>
   );
 }

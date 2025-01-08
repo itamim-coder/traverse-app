@@ -74,7 +74,7 @@ export default function HomeScreen() {
             isDelayedLoading ? `skeleton-${index}` : item.id.toString()
           }
         />
-        <View className="h-20" />
+        <View className="h-28" />
       </ScrollView>
     </SafeAreaView>
   );
