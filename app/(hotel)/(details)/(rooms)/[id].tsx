@@ -1,5 +1,6 @@
 import { useGetSingleRoomQuery } from "@/app/redux/api/roomApi";
-import { Ionicons } from "@expo/vector-icons";
+import BackNavigation from "@/components/navigation/BackNavigation";
+
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
@@ -10,39 +11,51 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Button,
 } from "react-native";
 import { Checkbox } from "react-native-paper";
-import RBSheet from "react-native-raw-bottom-sheet";
+
+import BottomSheet from "@ahmetaltai/react-native-bottom-sheet";
 
 const Rooms = () => {
-  const refRBSheet = useRef();
+  const params = useLocalSearchParams();
   const [checked, setChecked] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
-  const params = useLocalSearchParams();
   const items = params.items ? JSON.parse(params.items) : [];
   const { data: roomData, isLoading: loading } = useGetSingleRoomQuery(
     selectedRoom?.id
   );
 
+  const navigation = useNavigation();
+  const BottomSheetRef = useRef<BottomSheetRef>();
+
   const handleRoomPress = (room) => {
     setSelectedRoom(room); // Set selected room details
-    refRBSheet.current?.open(); // Open the bottom sheet
+    BottomSheetRef.current?.open();
   };
-  const navigation = useNavigation();
+  const OpenBottomSheet = () => {
+    BottomSheetRef.current?.open();
+  };
 
-  const handleGoBack = () => {
-    navigation.goBack();
+  const ExpandBottomSheet = () => {
+    BottomSheetRef.current?.expand();
   };
+
+  const SnapBottomSheet = (index: number) => {
+    BottomSheetRef.current?.snap(index);
+  };
+
+  const OnPressBackdrop = () => {
+    console.log("Backdrop Pressed");
+  };
+
+  const OnChangePoint = (index: number) => {
+    console.log("Present Change: " + index);
+  };
+
   return (
     <SafeAreaView className="flex-1">
-      <View className="w-full h-10">
-        <TouchableOpacity
-          className="h-10 m-4 w-10 z-10 absolute bg-orange-400 justify-center items-center rounded-full"
-          onPress={handleGoBack}
-        >
-          <Ionicons name={"arrow-back-outline"} color={"white"} size={25} />
-        </TouchableOpacity>
-      </View>
+      <BackNavigation />
       <FlatList
         data={items}
         keyExtractor={(item) => item.id}
@@ -74,25 +87,13 @@ const Rooms = () => {
           </Text>
         }
       />
-      <RBSheet
-        ref={refRBSheet}
-        closeOnDragDown={true} // Enables swipe-down to close
-        closeOnPressMask={true}
-        draggable={true}
-        useNativeDriver={true}
-        customStyles={{
-          wrapper: {
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          },
-          container: {
-            height: "90%",
-            borderTopLeftRadius: 10,
-            borderTopRightRadius: 10,
-          },
-          draggableIcon: {
-            backgroundColor: "#000",
-          },
-        }}
+
+      <BottomSheet
+        index={0}
+        ref={BottomSheetRef}
+        points={["80%"]}
+        onChangePoint={OnChangePoint}
+        // onPressBackdrop={OnPressBackdrop} - By default, pressing the backdrop will close the modal. If a different action is needed, the onPressBackdrop prop can be used to define a custom function.
       >
         {selectedRoom && roomData ? (
           <ScrollView className="p-4 flex-1">
@@ -167,7 +168,7 @@ const Rooms = () => {
             Loading room details...
           </Text>
         )}
-      </RBSheet>
+      </BottomSheet>
     </SafeAreaView>
   );
 };

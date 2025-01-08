@@ -1,4 +1,5 @@
 import { useLocationBasedHotelQuery } from "@/app/redux/api/locationsApi";
+import BackNavigation from "@/components/navigation/BackNavigation";
 import { Ionicons } from "@expo/vector-icons";
 import { Link, useLocalSearchParams, useNavigation } from "expo-router";
 import {
@@ -24,17 +25,7 @@ const DetailsScreen = () => {
   return (
     <SafeAreaView className="flex-1">
       <ScrollView className="flex-1">
-        <View className="w-full h-12 relative">
-          <TouchableOpacity
-            className="absolute top-3 left-3 h-10 w-10 bg-orange-400 justify-center items-center rounded-full"
-            onPress={handleGoBack}
-            style={{
-              marginVertical: 6, // Ensure equal top and bottom spacing
-            }}
-          >
-            <Ionicons name={"arrow-back-outline"} color={"white"} size={25} />
-          </TouchableOpacity>
-        </View>
+        <BackNavigation />
 
         <FlatList
           data={hotelData?.Hotel}

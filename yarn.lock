@@ -7,6 +7,11 @@
   resolved "https://registry.npmjs.org/@0no-co/graphql.web/-/graphql.web-1.0.12.tgz"
   integrity sha512-BTDjjsV/zSPy5fqItwm+KWUfh9CSe9tTtR6rCB72ddtkAxdcHbi4Ir4r/L1Et4lyxmL+i7Rb3m9sjLLi9tYrzA==
 
+"@ahmetaltai/react-native-bottom-sheet@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@ahmetaltai/react-native-bottom-sheet/-/react-native-bottom-sheet-0.1.2.tgz#2d6c008cb5a1b7a96a4259e629f753d7e67009ed"
+  integrity sha512-9/WVPLhuy57SmDxMys6RQyxd89wsPNuLzMuMH3NcKrD1hd1zqIwRI0SGwe30TEWBQGOUFwt9hBZoB51AttiTsQ==
+
 "@alloc/quick-lru@^5.2.0":
   version "5.2.0"
   resolved "https://registry.npmjs.org/@alloc/quick-lru/-/quick-lru-5.2.0.tgz"
