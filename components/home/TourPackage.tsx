@@ -1,30 +1,16 @@
 import React from "react";
-import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
-import { useRouter } from "expo-router";
+import { View, Text, ImageBackground } from "react-native";
+import { Link } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Skeleton } from "moti/skeleton";
-
-import Animated, { FadeIn, Layout } from "react-native-reanimated";
+import Animated, { FadeIn } from "react-native-reanimated";
 
 const TourPackage = ({ item, isLoading }) => {
-  const router = useRouter();
-
-  const handlePress = () => {
-    if (!isLoading) {
-      router.push({
-        pathname: `(tour)/(details)/${item?.id}`,
-        params: { item: JSON.stringify(item) },
-      });
-    }
-  };
-
   return (
-    <TouchableOpacity
-      onPress={handlePress}
+    <View
       className={`rounded bg-white flex-1 p-2 mb-2 ${
         isLoading && "opacity-50"
       }`}
-      disabled={isLoading}
     >
       <Skeleton.Group show={isLoading}>
         <Skeleton colorMode="light" radius={"square"} backgroundColor="#D4D4D4">
@@ -32,34 +18,36 @@ const TourPackage = ({ item, isLoading }) => {
             entering={FadeIn.duration(1500)}
             className="w-full h-40"
           >
-            <ImageBackground
-              className="w-full h-full rounded-md"
-              source={{ uri: item?.images?.[0] }}
-              resizeMode="cover"
-            >
-              {!isLoading && (
-                <LinearGradient
-                  colors={["#16222A", "transparent", "#3A6073"]}
-                  start={[0, 1]}
-                  end={[1, 0]}
-                  className="w-full h-full rounded"
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    borderRadius: 10,
-                  }}
-                >
-                  <View className="p-3 flex-1 justify-end">
-                    <Text className="text-white text-lg font-bold">
-                      {item?.title}
-                    </Text>
-                  </View>
-                </LinearGradient>
-              )}
-            </ImageBackground>
+            <Link key={item?.id} href={`(tour)/(details)/${item?.id}`}>
+              <ImageBackground
+                className="w-full h-full rounded-md"
+                source={{ uri: item?.images?.[0] }}
+                resizeMode="cover"
+              >
+                {!isLoading && (
+                  <LinearGradient
+                    colors={["#16222A", "transparent", "#3A6073"]}
+                    start={[0, 1]}
+                    end={[1, 0]}
+                    className="w-full h-full rounded"
+                    style={{
+                      position: "absolute",
+                      left: 0,
+                      right: 0,
+                      top: 0,
+                      bottom: 0,
+                      borderRadius: 10,
+                    }}
+                  >
+                    <View className="p-3 flex-1 justify-end">
+                      <Text className="text-white text-lg font-bold">
+                        {item?.title}
+                      </Text>
+                    </View>
+                  </LinearGradient>
+                )}
+              </ImageBackground>
+            </Link>
           </Animated.View>
         </Skeleton>
 
@@ -85,7 +73,7 @@ const TourPackage = ({ item, isLoading }) => {
           </Skeleton>
         </Animated.View>
       </Skeleton.Group>
-    </TouchableOpacity>
+    </View>
   );
 };
 

@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
 import CustomCard from "../ui/CustomCard";
+import { Image } from "expo-image";
 
 const PopularLocation = ({ item, index, length }) => {
   return (

@@ -4,7 +4,6 @@ import {
   View,
   Text,
   StatusBar,
-  Image,
   TouchableOpacity,
   FlatList,
 } from "react-native";
@@ -20,29 +19,7 @@ import { useGetLocationQuery } from "@/app/redux/api/locationsApi";
 import PopularLocation from "@/components/home/PopularLocation";
 import TourPackage from "@/components/home/TourPackage";
 import { useGetAvailableTourQuery } from "@/app/redux/api/tourApi";
-
-const hotels = [
-  {
-    id: 1,
-    name: "Hotel Sunshine",
-    description:
-      "Enjoy your stay at the heart of the city with luxury amenities.",
-    image: "https://example.com/hotel-sunshine.jpg",
-  },
-  {
-    id: 2,
-    name: "Ocean View Resort",
-    description: "A perfect place to relax with a stunning ocean view.",
-    image: "https://example.com/ocean-view-resort.jpg",
-  },
-  {
-    id: 3,
-    name: "Mountain Retreat",
-    description: "Escape to the tranquility of the mountains.",
-    image:
-      "https://api.sharetrip.net/api/v1/hotel/image?key=HyANbffVjkBh1mA2CJLuNFZlI6UkKrgAbXWPt8bqt5XudxSGJg/auh/IeYO9o63FWll2h/tvGridd5Ar9ZmNcHi24sFxm+TFZ5/yA+MYIRt6NpNOjjaAVLi1UwRhfhOIbLYx6ho8BmHpgS+VGCvTsA==",
-  },
-];
+import { Image } from "expo-image";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -79,6 +56,7 @@ export default function HomeScreen() {
             <PopularLocation
               item={item}
               index={index}
+              key={index}
               length={Locations.length}
             />
           )}

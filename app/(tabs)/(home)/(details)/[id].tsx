@@ -8,10 +8,11 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  FlatList,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const DetailsScreen=()=> {
+const DetailsScreen = () => {
   const { id } = useLocalSearchParams();
   const { data: hotelData, isLoading } = useLocationBasedHotelQuery(id);
   console.log(hotelData);
@@ -23,25 +24,31 @@ const DetailsScreen=()=> {
   return (
     <SafeAreaView className="flex-1">
       <ScrollView className="flex-1">
-        <View className="w-full h-10">
+        <View className="w-full h-12 relative">
           <TouchableOpacity
-            className="h-10 m-4 w-10 z-10 absolute bg-orange-400 justify-center items-center rounded-full"
+            className="absolute top-3 left-3 h-10 w-10 bg-orange-400 justify-center items-center rounded-full"
             onPress={handleGoBack}
+            style={{
+              marginVertical: 6, // Ensure equal top and bottom spacing
+            }}
           >
             <Ionicons name={"arrow-back-outline"} color={"white"} size={25} />
           </TouchableOpacity>
         </View>
-        <View className="p-4">
-          {hotelData?.Hotel?.map((data) => (
+
+        <FlatList
+          data={hotelData?.Hotel}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item, index }) => (
             <View className="flex-row bg-white rounded-xl p-2">
               <Image
-                source={{ uri: `${data.photos[0]}` }}
+                source={{ uri: `${item.photos[0]}` }}
                 className="w-40 h-32 rounded-xl"
               />
               <View className="flex-1 flex-col justify-between pl-4">
-                <Text className="text-base font-semibold">{data.name}</Text>
+                <Text className="text-base font-semibold">{item.name}</Text>
                 <TouchableOpacity className="p-3 bg-orange-600 rounded-md">
-                  <Link key={data?.id} href={`(hotel)/(details)/${data?.id}`}>
+                  <Link key={item?.id} href={`(hotel)/(details)/${item?.id}`}>
                     <Text className="text-white text-center font-semibold">
                       Check Availability
                     </Text>
@@ -49,11 +56,13 @@ const DetailsScreen=()=> {
                 </TouchableOpacity>
               </View>
             </View>
-          ))}
-          <View></View>
-        </View>
+          )}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={{ padding: 10, paddingTop: 20 }}
+          ItemSeparatorComponent={() => <View className="h-4" />}
+        />
       </ScrollView>
     </SafeAreaView>
   );
-}
-export default DetailsScreen
+};
+export default DetailsScreen;
